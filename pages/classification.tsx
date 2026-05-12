@@ -15,10 +15,10 @@ const ClassificationMetricsChart = dynamic(
 const ClassificationPage: NextPage = () => {
    const {tfidf} = classificationResults;
    const metrics = [
-      {label: 'Accuracy', value: tfidf.accuracy, color: '#6366f1'},
-      {label: 'Precision', value: tfidf.precision, color: '#8b5cf6'},
-      {label: 'Recall', value: tfidf.recall, color: '#06b6d4'},
-      {label: 'F1-Score', value: tfidf.f1Score, color: '#10b981'},
+      {label: 'Accuracy', value: tfidf.accuracy, color: '#3b82f6'},
+      {label: 'Precision', value: tfidf.precision, color: '#2563eb'},
+      {label: 'Recall', value: tfidf.recall, color: '#1d4ed8'},
+      {label: 'F1-Score', value: tfidf.f1Score, color: '#475569'},
    ];
 
    return (
@@ -29,7 +29,7 @@ const ClassificationPage: NextPage = () => {
          </Text>
 
          {/* ── Text Classification Playground ── */}
-         <Text h3 css={{mb: '$2'}}>🧪 Classification Playground</Text>
+         <Text h3 css={{mb: '$2'}}>Classification Playground</Text>
          <Text css={{color: '$accents7', mb: '$6', fontSize: '$sm'}}>
             Masukkan kalimat bebas — model akan menentukan kategorinya secara otomatis.
          </Text>
@@ -57,9 +57,8 @@ const ClassificationPage: NextPage = () => {
                         css={{
                            fontSize: '2.5rem',
                            fontWeight: 700,
-                           background: `linear-gradient(135deg, ${m.color}, ${m.color}99)`,
-                           WebkitBackgroundClip: 'text',
-                           WebkitTextFillColor: 'transparent',
+                           fontWeight: 700,
+                           color: m.color,
                            lineHeight: 1,
                            mb: '$2',
                         }}
@@ -183,9 +182,9 @@ const ClassificationPage: NextPage = () => {
          </Card>
 
          {/* Confusion matrix note */}
-         <Card css={{borderRadius: '$xl', bg: 'linear-gradient(135deg, #6366f110, #8b5cf610)', border: '1px solid #6366f130'}}>
+         <Card css={{borderRadius: '$xl', bg: '$accents0', border: '1px solid $accents2'}}>
             <Card.Body css={{py: '$6', px: '$8'}}>
-               <Text b css={{mb: '$2', color: '$accents9'}}>ℹ️ Catatan Metodologi</Text>
+               <Text b css={{mb: '$2', color: '$accents9'}}>Catatan Metodologi</Text>
                <Text css={{color: '$accents7', fontSize: '$sm', lineHeight: 1.6}}>
                   Hasil klasifikasi di atas menggunakan metode <strong>TF-IDF dengan 1000 fitur terpilih</strong> 
                   dikombinasikan dengan classifier SVM (Support Vector Machine). 
