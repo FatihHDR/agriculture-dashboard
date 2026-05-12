@@ -1,79 +1,62 @@
 import {Card, Text} from '@nextui-org/react';
 import React from 'react';
-import {Community} from '../icons/community';
 import {Box} from '../styles/box';
 import {Flex} from '../styles/flex';
+import {embeddingModels} from '../../lib/nlp-data';
 
-export const CardBalance2 = () => {
+export const CardEmbeddingModels = () => {
    return (
       <Card
          css={{
             mw: '375px',
-            bg: '$accents0',
+            bg: '$purple600',
             borderRadius: '$xl',
             px: '$6',
          }}
       >
          <Card.Body css={{py: '$10'}}>
-            <Flex css={{gap: '$5'}}>
-               <Community color={'$accents9'} />
+            <Flex css={{gap: '$5'}} align="center">
+               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="5" cy="12" r="2" stroke="white" strokeWidth="1.5"/>
+                  <circle cx="12" cy="5" r="2" stroke="white" strokeWidth="1.5"/>
+                  <circle cx="19" cy="12" r="2" stroke="white" strokeWidth="1.5"/>
+                  <circle cx="12" cy="19" r="2" stroke="white" strokeWidth="1.5"/>
+                  <circle cx="12" cy="12" r="2" stroke="white" strokeWidth="1.5"/>
+                  <line x1="7" y1="12" x2="10" y2="12" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                  <line x1="14" y1="12" x2="17" y2="12" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                  <line x1="12" y1="7" x2="12" y2="10" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                  <line x1="12" y1="14" x2="12" y2="17" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+               </svg>
                <Flex direction={'column'}>
-                  <Text span css={{color: ''}}>
-                     Healt Insurance
+                  <Text span css={{color: 'white'}} weight="semibold">
+                     Word Embeddings
                   </Text>
-                  <Text span size={'$xs'}>
-                     +2400 People
+                  <Text span css={{color: 'rgba(255,255,255,0.7)'}} size={'$xs'}>
+                     Model Representasi Vektor
                   </Text>
                </Flex>
             </Flex>
             <Flex css={{gap: '$6', py: '$4'}} align={'center'}>
-               <Text span size={'$xl'} weight={'semibold'}>
-                  $12,138
+               <Text
+                  span
+                  size={'$xl'}
+                  css={{color: 'white'}}
+                  weight={'semibold'}
+               >
+                  {embeddingModels.length}
                </Text>
-               <Text span css={{color: '$red600'}} size={'$xs'}>
-                  + 4.5%
+               <Text span css={{color: 'rgba(255,255,255,0.7)'}} size={'$sm'}>
+                  Model Diimplementasikan
                </Text>
             </Flex>
-            <Flex css={{gap: '$12'}} align={'center'}>
-               <Box>
-                  <Text
-                     span
-                     size={'$xs'}
-                     css={{color: '$green600'}}
-                     weight={'semibold'}
-                  >
-                     {'↓'}
-                  </Text>
-                  <Text span size={'$xs'}>
-                     11,930 USD
-                  </Text>
-               </Box>
-               <Box>
-                  <Text
-                     span
-                     size={'$xs'}
-                     css={{color: '$red600'}}
-                     weight={'semibold'}
-                  >
-                     {'↑'}
-                  </Text>
-                  <Text span size={'$xs'}>
-                     54,120 USD
-                  </Text>
-               </Box>
-               <Box>
-                  <Text
-                     span
-                     size={'$xs'}
-                     css={{color: '$green600'}}
-                     weight={'semibold'}
-                  >
-                     {'⭐'}
-                  </Text>
-                  <Text span size={'$xs'}>
-                     150 VIP
-                  </Text>
-               </Box>
+            <Flex css={{gap: '$8', flexWrap: 'wrap'}} align={'center'}>
+               {embeddingModels.map((m) => (
+                  <Box key={m.shortName}>
+                     <Text span size={'$xs'} css={{color: 'rgba(255,255,255,0.6)'}}>
+                        {m.shortName}
+                     </Text>
+                  </Box>
+               ))}
             </Flex>
          </Card.Body>
       </Card>

@@ -1,75 +1,63 @@
-import {Avatar, Card, Text} from '@nextui-org/react';
+import {Card, Text, Badge} from '@nextui-org/react';
 import React from 'react';
-import {Box} from '../styles/box';
 import {Flex} from '../styles/flex';
+import {pipelineSteps} from '../../lib/nlp-data';
 
-const pictureUsers = [
-   'https://i.pravatar.cc/150?u=a042581f4e29026024d',
-   'https://i.pravatar.cc/150?u=a042581f4e29026704d',
-   'https://i.pravatar.cc/150?u=a04258114e29026702d',
-   'https://i.pravatar.cc/150?u=a048581f4e29026701d',
-   'https://i.pravatar.cc/150?u=a092581d4ef9026700d',
-];
-
-export const CardAgents = () => {
+export const CardPipelineStatus = () => {
    return (
       <Card
          css={{
             mw: '375px',
+            height: 'auto',
             bg: '$accents0',
-            height: '275px',
             borderRadius: '$xl',
-            alignContent: 'center',
-            justifyContent: 'center',
+            justifyContent: 'start',
             px: '$6',
          }}
       >
-         <Card.Body css={{py: '$10', gap: '$4'}}>
-            <Flex
-               css={{
-                  width: '100%',
-               }}
-               justify={'center'}
-            >
-               <Flex
-                  align={'center'}
-                  direction={'row'}
-                  justify={'center'}
-                  css={{
-                     width: '150px',
-                     border: '2.5px dashed $border',
-                     borderRadius: '$base',
-                  }}
-               >
-                  {'⭐'}
-                  <Box>
-                     <Flex direction={'column'}>
-                        <Text h3 css={{margin: 0}}>
-                           Agents
-                        </Text>
-                     </Flex>
-                  </Box>
-               </Flex>
-            </Flex>
-            <Flex css={{gap: '$6', py: '$4'}} align={'center'}>
-               <Text span size={'$xs'}>
-                  Meet your agenda and see their ranks to get the best results
+         <Card.Body css={{py: '$10'}}>
+            <Flex css={{gap: '$5', pb: '$4'}} justify={'center'}>
+               <Text h3 css={{textAlign: 'center'}}>
+                  Pipeline NLP
                </Text>
             </Flex>
-            <Flex css={{pt: '$4'}} align={'center'} justify={'center'}>
-               <Avatar.Group count={12}>
-                  {pictureUsers.map((url, index) => (
-                     <Avatar
-                        key={index}
-                        size="lg"
-                        pointer
-                        src={url}
-                        bordered
-                        color="gradient"
-                        stacked
-                     />
-                  ))}
-               </Avatar.Group>
+            <Flex css={{gap: '$5'}} direction={'column'}>
+               {pipelineSteps.map((step) => (
+                  <Flex key={step.step} css={{gap: '$4'}} align={'center'} justify="between">
+                     <Flex css={{gap: '$4'}} align={'center'}>
+                        <Flex
+                           align={'center'}
+                           justify={'center'}
+                           css={{
+                              width: '28px',
+                              height: '28px',
+                              borderRadius: '50%',
+                              background: step.status === 'done' ? '$green500' : step.status === 'active' ? '$blue500' : '$accents3',
+                              flexShrink: 0,
+                           }}
+                        >
+                           <Text span size={'$xs'} css={{color: 'white'}} weight="semibold">
+                              {step.step}
+                           </Text>
+                        </Flex>
+                        <Flex direction={'column'}>
+                           <Text span size={'$sm'} weight={'semibold'}>
+                              {step.name}
+                           </Text>
+                           <Text span size={'$xs'} css={{color: '$accents7'}}>
+                              {step.description}
+                           </Text>
+                        </Flex>
+                     </Flex>
+                     <Badge
+                        variant="flat"
+                        color={step.status === 'done' ? 'success' : step.status === 'active' ? 'primary' : 'default'}
+                        size="xs"
+                     >
+                        {step.status === 'done' ? '✓' : step.status === 'active' ? 'Now' : '...'}
+                     </Badge>
+                  </Flex>
+               ))}
             </Flex>
          </Card.Body>
       </Card>

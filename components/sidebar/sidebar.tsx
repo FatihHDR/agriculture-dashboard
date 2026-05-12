@@ -3,24 +3,19 @@ import {Box} from '../styles/box';
 import {Sidebar} from './sidebar.styles';
 import {Avatar, Tooltip} from '@nextui-org/react';
 import {Flex} from '../styles/flex';
-import {CompaniesDropdown} from './companies-dropdown';
 import {HomeIcon} from '../icons/sidebar/home-icon';
-import {PaymentsIcon} from '../icons/sidebar/payments-icon';
-import {BalanceIcon} from '../icons/sidebar/balance-icon';
-import {AccountsIcon} from '../icons/sidebar/accounts-icon';
-import {CustomersIcon} from '../icons/sidebar/customers-icon';
-import {ProductsIcon} from '../icons/sidebar/products-icon';
 import {ReportsIcon} from '../icons/sidebar/reports-icon';
-import {DevIcon} from '../icons/sidebar/dev-icon';
-import {ViewIcon} from '../icons/sidebar/view-icon';
 import {SettingsIcon} from '../icons/sidebar/settings-icon';
 import {CollapseItems} from './collapse-items';
 import {SidebarItem} from './sidebar-item';
 import {SidebarMenu} from './sidebar-menu';
 import {FilterIcon} from '../icons/sidebar/filter-icon';
 import {useSidebarContext} from '../layout/layout-context';
-import {ChangeLogIcon} from '../icons/sidebar/changelog-icon';
 import {useRouter} from 'next/router';
+import {DatasetIcon} from '../icons/sidebar/dataset-icon';
+import {EmbeddingIcon} from '../icons/sidebar/embedding-icon';
+import {ClassificationIcon} from '../icons/sidebar/classification-icon';
+import {FeaturesIcon} from '../icons/sidebar/features-icon';
 
 export const SidebarWrapper = () => {
    const router = useRouter();
@@ -40,7 +35,34 @@ export const SidebarWrapper = () => {
 
          <Sidebar collapsed={collapsed}>
             <Sidebar.Header>
-               <CompaniesDropdown />
+               <Flex align={'center'} css={{gap: '$4', px: '$4', py: '$2'}}>
+                  <Box
+                     css={{
+                        width: '36px',
+                        height: '36px',
+                        borderRadius: '$lg',
+                        background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                     }}
+                  >
+                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                     </svg>
+                  </Box>
+                  <Box>
+                     <Box css={{color: '$accents9', fontWeight: '$semibold', fontSize: '$lg', lineHeight: 1.2}}>
+                        NLP Dashboard
+                     </Box>
+                     <Box css={{color: '$accents6', fontSize: '$xs', lineHeight: 1.2}}>
+                        ICAR Agriculture
+                     </Box>
+                  </Box>
+               </Flex>
             </Sidebar.Header>
             <Flex
                direction={'column'}
@@ -49,69 +71,44 @@ export const SidebarWrapper = () => {
             >
                <Sidebar.Body className="body sidebar">
                   <SidebarItem
-                     title="Home"
+                     title="Overview"
                      icon={<HomeIcon />}
                      isActive={router.pathname === '/'}
                      href="/"
                   />
-                  <SidebarMenu title="Main Menu">
+                  <SidebarMenu title="Analisis NLP">
                      <SidebarItem
-                        isActive={router.pathname === '/accounts'}
-                        title="Accounts"
-                        icon={<AccountsIcon />}
-                        href="accounts"
+                        isActive={router.pathname === '/dataset'}
+                        title="Dataset & Preprocessing"
+                        icon={<DatasetIcon />}
+                        href="/dataset"
                      />
                      <SidebarItem
-                        isActive={router.pathname === '/payments'}
-                        title="Payments"
-                        icon={<PaymentsIcon />}
+                        isActive={router.pathname === '/features'}
+                        title="Ekstraksi Fitur"
+                        icon={<FeaturesIcon />}
+                        href="/features"
                      />
-                     <CollapseItems
-                        icon={<BalanceIcon />}
-                        items={['Banks Accounts', 'Credit Cards', 'Loans']}
-                        title="Balances"
+                     <SidebarItem
+                        isActive={router.pathname === '/embedding'}
+                        title="Word Embedding"
+                        icon={<EmbeddingIcon />}
+                        href="/embedding"
                      />
+                     <SidebarItem
+                        isActive={router.pathname === '/classification'}
+                        title="Klasifikasi"
+                        icon={<ClassificationIcon />}
+                        href="/classification"
+                     />
+                  </SidebarMenu>
 
-                     <SidebarItem
-                        isActive={router.pathname === '/customers'}
-                        title="Customers"
-                        icon={<CustomersIcon />}
-                     />
-                     <SidebarItem
-                        isActive={router.pathname === '/products'}
-                        title="Products"
-                        icon={<ProductsIcon />}
-                     />
+                  <SidebarMenu title="Laporan">
                      <SidebarItem
                         isActive={router.pathname === '/reports'}
-                        title="Reports"
+                        title="Laporan Hasil"
                         icon={<ReportsIcon />}
-                     />
-                  </SidebarMenu>
-
-                  <SidebarMenu title="General">
-                     <SidebarItem
-                        isActive={router.pathname === '/developers'}
-                        title="Developers"
-                        icon={<DevIcon />}
-                     />
-                     <SidebarItem
-                        isActive={router.pathname === '/view'}
-                        title="View Test Data"
-                        icon={<ViewIcon />}
-                     />
-                     <SidebarItem
-                        isActive={router.pathname === '/settings'}
-                        title="Settings"
-                        icon={<SettingsIcon />}
-                     />
-                  </SidebarMenu>
-
-                  <SidebarMenu title="Updates">
-                     <SidebarItem
-                        isActive={router.pathname === '/changelog'}
-                        title="Changelog"
-                        icon={<ChangeLogIcon />}
+                        href="/reports"
                      />
                   </SidebarMenu>
                </Sidebar.Body>
@@ -119,13 +116,14 @@ export const SidebarWrapper = () => {
                   <Tooltip content={'Settings'} rounded color="primary">
                      <SettingsIcon />
                   </Tooltip>
-                  <Tooltip content={'Adjustments'} rounded color="primary">
+                  <Tooltip content={'Filter'} rounded color="primary">
                      <FilterIcon />
                   </Tooltip>
                   <Tooltip content={'Profile'} rounded color="primary">
                      <Avatar
-                        src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                        text="NLP"
                         size={'sm'}
+                        color="gradient"
                      />
                   </Tooltip>
                </Sidebar.Footer>

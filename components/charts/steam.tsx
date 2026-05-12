@@ -1,32 +1,26 @@
 import React from 'react';
 import {Box} from '../styles/box';
 import Chart, {Props} from 'react-apexcharts';
+import {categoryDistribution} from '../../lib/nlp-data';
+
+const categories = categoryDistribution.map((c) => c.name);
+const originalData = categoryDistribution.map((c) => c.original);
+const augmentedData = categoryDistribution.map((c) => c.augmented - c.original);
 
 const state: Props['series'] = [
    {
-      name: 'Series1',
-      data: [31, 40, 28, 51, 42, 109, 100],
+      name: 'Dokumen Asli',
+      data: originalData,
    },
    {
-      name: 'Series2',
-      data: [11, 32, 45, 32, 34, 52, 41],
+      name: 'Hasil Augmentasi',
+      data: augmentedData,
    },
 ];
 
 const options: Props['options'] = {
    chart: {
-      type: 'area',
-      animations: {
-         easing: 'linear',
-         speed: 300,
-      },
-      sparkline: {
-         enabled: false,
-      },
-      brush: {
-         enabled: false,
-      },
-      id: 'basic-bar',
+      type: 'bar',
       fontFamily: 'Inter, sans-serif',
       foreColor: 'var(--nextui-colors-accents9)',
       stacked: true,
@@ -34,15 +28,23 @@ const options: Props['options'] = {
          show: false,
       },
    },
-
+   colors: ['#6366f1', '#10b981'],
+   plotOptions: {
+      bar: {
+         horizontal: false,
+         borderRadius: 6,
+         columnWidth: '50%',
+      },
+   },
    xaxis: {
-      categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
+      categories,
       labels: {
-         // show: false,
          style: {
             colors: 'var(--nextui-colors-accents8)',
             fontFamily: 'Inter, sans-serif',
+            fontSize: '11px',
          },
+         rotate: -20,
       },
       axisBorder: {
          color: 'var(--nextui-colors-border)',
@@ -58,27 +60,42 @@ const options: Props['options'] = {
             fontFamily: 'Inter, sans-serif',
          },
       },
+      title: {
+         text: 'Jumlah Dokumen',
+         style: {
+            color: 'var(--nextui-colors-accents8)',
+            fontFamily: 'Inter, sans-serif',
+         },
+      },
+   },
+   legend: {
+      position: 'top',
+      labels: {
+         colors: 'var(--nextui-colors-accents8)',
+      },
    },
    tooltip: {
-      enabled: false,
+      enabled: true,
+      theme: 'dark',
+      y: {
+         formatter: (val: number) => `${val} dokumen`,
+      },
    },
    grid: {
       show: true,
       borderColor: 'var(--nextui-colors-border)',
-      strokeDashArray: 0,
+      strokeDashArray: 3,
       position: 'back',
    },
-   stroke: {
-      curve: 'smooth',
-      fill: {
-         colors: ['red'],
-      },
+   fill: {
+      opacity: 1,
    },
-   // @ts-ignore
-   markers: false,
+   dataLabels: {
+      enabled: false,
+   },
 };
 
-export const Steam = () => {
+export const CategoryDistributionChart = () => {
    return (
       <>
          <Box
@@ -87,12 +104,12 @@ export const Steam = () => {
                zIndex: 5,
             }}
          >
-            <div id="chart">
+            <div id="category-chart">
                <Chart
                   options={options}
                   series={state}
-                  type="area"
-                  height={425}
+                  type="bar"
+                  height={380}
                />
             </div>
          </Box>

@@ -1,90 +1,70 @@
-import {Col, Row, User, Text, Tooltip} from '@nextui-org/react';
+import {Col, Row, Text, Tooltip, Badge} from '@nextui-org/react';
 import React from 'react';
-import {DeleteIcon} from '../icons/table/delete-icon';
-import {EditIcon} from '../icons/table/edit-icon';
-import {EyeIcon} from '../icons/table/eye-icon';
-import {users} from './data';
-import {IconButton, StyledBadge} from './table.styled';
+import {features} from './data';
+import {StyledBadge} from './table.styled';
 
 interface Props {
-   user: typeof users[number];
+   user: typeof features[number];
    columnKey: string | React.Key;
 }
 
 export const RenderCell = ({user, columnKey}: Props) => {
-   // @ts-ignore
-   const cellValue = user[columnKey];
    switch (columnKey) {
-      case 'name':
+      case 'rank':
          return (
-            <User squared src={user.avatar} name={cellValue} css={{p: 0}}>
-               {user.email}
-            </User>
+            <Text b size={14} css={{color: '$accents7', textAlign: 'center'}}>
+               #{user.id}
+            </Text>
          );
-      case 'role':
+      case 'feature':
          return (
             <Col>
                <Row>
-                  <Text b size={14} css={{tt: 'capitalize'}}>
-                     {cellValue}
-                  </Text>
-               </Row>
-               <Row>
                   <Text
                      b
-                     size={13}
-                     css={{tt: 'capitalize', color: '$accents7'}}
+                     size={14}
+                     css={{
+                        fontFamily: 'monospace',
+                        background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        letterSpacing: '0.05em',
+                     }}
                   >
-                     {user.team}
+                     {user.feature}
                   </Text>
                </Row>
             </Col>
          );
-      case 'status':
+      case 'score':
+         return (
+            <Col>
+               <Row>
+                  <Text b size={14} css={{color: '$accents9', fontVariantNumeric: 'tabular-nums'}}>
+                     {user.score.toFixed(5)}
+                  </Text>
+               </Row>
+               <Row>
+                  <div style={{
+                     width: `${(user.score / 0.046) * 100}%`,
+                     height: '4px',
+                     borderRadius: '2px',
+                     background: 'linear-gradient(90deg, #6366f1, #8b5cf6)',
+                     marginTop: '4px',
+                     transition: 'width 0.3s ease',
+                  }} />
+               </Row>
+            </Col>
+         );
+      case 'relevance':
          return (
             // @ts-ignore
-            <StyledBadge type={String(user.status)}>{cellValue}</StyledBadge>
-         );
-
-      case 'actions':
-         return (
-            <Row
-               justify="center"
-               align="center"
-               css={{'gap': '$8', '@md': {gap: 0}}}
-            >
-               <Col css={{d: 'flex'}}>
-                  <Tooltip content="Details">
-                     <IconButton
-                        onClick={() => console.log('View user', user.id)}
-                     >
-                        <EyeIcon size={20} fill="#979797" />
-                     </IconButton>
-                  </Tooltip>
-               </Col>
-               <Col css={{d: 'flex'}}>
-                  <Tooltip content="Edit user">
-                     <IconButton
-                        onClick={() => console.log('Edit user', user.id)}
-                     >
-                        <EditIcon size={20} fill="#979797" />
-                     </IconButton>
-                  </Tooltip>
-               </Col>
-               <Col css={{d: 'flex'}}>
-                  <Tooltip
-                     content="Delete user"
-                     color="error"
-                     onClick={() => console.log('Delete user', user.id)}
-                  >
-                     <IconButton>
-                        <DeleteIcon size={20} fill="#FF0080" />
-                     </IconButton>
-                  </Tooltip>
-               </Col>
-            </Row>
+            <StyledBadge type={user.relevance === 'high' ? 'active' : 'paused'}>
+               {user.relevance === 'high' ? 'Tinggi' : 'Sedang'}
+            </StyledBadge>
          );
       default:
-         return cellValue;
+         // @ts-ignore
+         return user[columnKey];
    }
 };

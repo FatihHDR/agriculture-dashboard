@@ -1,7 +1,7 @@
 import {Table} from '@nextui-org/react';
 import React from 'react';
 import {Box} from '../styles/box';
-import {columns, users} from './data';
+import {columns, features} from './data';
 import {RenderCell} from './render-cell';
 
 export const TableWrapper = () => {
@@ -14,7 +14,7 @@ export const TableWrapper = () => {
          }}
       >
          <Table
-            aria-label="Example table with custom cells"
+            aria-label="Top 15 Fitur TF-IDF"
             css={{
                height: 'auto',
                minWidth: '100%',
@@ -22,22 +22,21 @@ export const TableWrapper = () => {
                width: '100%',
                px: 0,
             }}
-            selectionMode="multiple"
+            selectionMode="single"
          >
             <Table.Header columns={columns}>
                {(column) => (
                   <Table.Column
                      key={column.uid}
-                     hideHeader={column.uid === 'actions'}
-                     align={column.uid === 'actions' ? 'center' : 'start'}
+                     align={column.uid === 'rank' ? 'center' : 'start'}
                   >
                      {column.name}
                   </Table.Column>
                )}
             </Table.Header>
-            <Table.Body items={users}>
+            <Table.Body items={features}>
                {(item) => (
-                  <Table.Row>
+                  <Table.Row key={item.id}>
                      {(columnKey) => (
                         <Table.Cell>
                            {RenderCell({user: item, columnKey: columnKey})}
@@ -46,13 +45,6 @@ export const TableWrapper = () => {
                   </Table.Row>
                )}
             </Table.Body>
-            <Table.Pagination
-               shadow
-               noMargin
-               align="center"
-               rowsPerPage={8}
-               onPageChange={(page) => console.log({page})}
-            />
          </Table>
       </Box>
    );

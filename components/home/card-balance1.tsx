@@ -1,10 +1,9 @@
-import {Card, Text} from '@nextui-org/react';
 import React from 'react';
-import {Community} from '../icons/community';
-import {Box} from '../styles/box';
+import {Card, Text} from '@nextui-org/react';
 import {Flex} from '../styles/flex';
+import {datasetInfo} from '../../lib/nlp-data';
 
-export const CardBalance1 = () => {
+export const CardDatasetInfo = () => {
    return (
       <Card
          css={{
@@ -15,14 +14,18 @@ export const CardBalance1 = () => {
          }}
       >
          <Card.Body css={{py: '$10'}}>
-            <Flex css={{gap: '$5'}}>
-               <Community />
+            <Flex css={{gap: '$5'}} align="center">
+               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2C7.03 2 3 4.24 3 7V17C3 19.76 7.03 22 12 22C16.97 22 21 19.76 21 17V7C21 4.24 16.97 2 12 2Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M3 7C3 9.76 7.03 12 12 12C16.97 12 21 9.76 21 7" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M3 12C3 14.76 7.03 17 12 17C16.97 17 21 14.76 21 12" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+               </svg>
                <Flex direction={'column'}>
-                  <Text span css={{color: 'white'}}>
-                     Auto Insurance
+                  <Text span css={{color: 'white'}} weight="semibold">
+                     {datasetInfo.name}
                   </Text>
-                  <Text span css={{color: 'white'}} size={'$xs'}>
-                     1311 Cars
+                  <Text span css={{color: 'rgba(255,255,255,0.7)'}} size={'$xs'}>
+                     Dataset Pertanian
                   </Text>
                </Flex>
             </Flex>
@@ -33,52 +36,37 @@ export const CardBalance1 = () => {
                   css={{color: 'white'}}
                   weight={'semibold'}
                >
-                  $45,910
+                  {datasetInfo.totalDocsAugmented}
                </Text>
-               <Text span css={{color: '$green600'}} size={'$xs'}>
-                  + 4.5%
+               <Text span css={{color: '$green400'}} size={'$sm'}>
+                  +{datasetInfo.totalDocsAugmented - datasetInfo.totalDocs} augmented
                </Text>
             </Flex>
             <Flex css={{gap: '$12'}} align={'center'}>
-               <Box>
-                  <Text
-                     span
-                     size={'$xs'}
-                     css={{color: '$green600'}}
-                     weight={'semibold'}
-                  >
-                     {'↓'}
+               <Flex direction="column">
+                  <Text span size={'$xs'} css={{color: 'rgba(255,255,255,0.6)'}}>
+                     Dokumen Asli
                   </Text>
-                  <Text span size={'$xs'} css={{color: '$white'}}>
-                     100,930 USD
+                  <Text span size={'$sm'} css={{color: 'white'}} weight="semibold">
+                     {datasetInfo.totalDocs}
                   </Text>
-               </Box>
-               <Box>
-                  <Text
-                     span
-                     size={'$xs'}
-                     css={{color: '$red600'}}
-                     weight={'semibold'}
-                  >
-                     {'↑'}
+               </Flex>
+               <Flex direction="column">
+                  <Text span size={'$xs'} css={{color: 'rgba(255,255,255,0.6)'}}>
+                     Kategori
                   </Text>
-                  <Text span size={'$xs'} css={{color: '$white'}}>
-                     54,120 USD
+                  <Text span size={'$sm'} css={{color: 'white'}} weight="semibold">
+                     {datasetInfo.categories}
                   </Text>
-               </Box>
-               <Box>
-                  <Text
-                     span
-                     size={'$xs'}
-                     css={{color: '$green600'}}
-                     weight={'semibold'}
-                  >
-                     {'⭐'}
+               </Flex>
+               <Flex direction="column">
+                  <Text span size={'$xs'} css={{color: 'rgba(255,255,255,0.6)'}}>
+                     Fitur TF-IDF
                   </Text>
-                  <Text span size={'$xs'} css={{color: '$white'}}>
-                     125 VIP
+                  <Text span size={'$sm'} css={{color: 'white'}} weight="semibold">
+                     1000
                   </Text>
-               </Box>
+               </Flex>
             </Flex>
          </Card.Body>
       </Card>
