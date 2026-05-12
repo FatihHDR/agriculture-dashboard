@@ -71,7 +71,7 @@ export const TextClassifier = () => {
             'Traditional Knowledge in Agriculture': '#ec4899',
             'Traditional Knowledge': '#ec4899'
          };
-         
+
          const mappedScores = data.scores.map((score: ClassScore) => ({
             ...score,
             color: colorMap[score.label] || score.color
@@ -128,6 +128,7 @@ export const TextClassifier = () => {
                      >
                         <option value="tfidf">TF-IDF + SVM</option>
                         <option value="fasttext">FastText + SVM</option>
+                        <option value="dt-tfidf">TF-IDF + Decision Tree</option>
                         <option value="nb-tfidf">TF-IDF + Naive Bayes</option>
                      </select>
                      <Text span css={{ color: '$accents6', fontSize: '$xs' }}>{charCount} karakter</Text>
