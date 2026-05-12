@@ -99,6 +99,9 @@ export const TextClassifier = () => {
                      >
                         <option value="tfidf">TF-IDF + SVM</option>
                         <option value="fasttext">FastText + SVM</option>
+                        <option value="dt-tfidf">TF-IDF + Decision Tree</option>
+                        <option value="dt-bow">BoW + Decision Tree</option>
+                        <option value="dt-ngram">N-gram + Decision Tree</option>
                      </select>
                      <Text span css={{color: '$accents6', fontSize: '$xs'}}>{charCount} karakter</Text>
                   </Flex>
@@ -347,7 +350,7 @@ export const TextClassifier = () => {
                      }}
                   >
                      <Text css={{color: '$accents5', fontSize: '11px'}}>
-                        <em>Catatan: Menggunakan model {method === 'tfidf' ? 'TF-IDF' : 'FastText'} + SVM yang dilatih dengan ICAR Agriculture Dataset. Data dilayani via FastAPI.</em>
+                        <em>Catatan: Menggunakan model {method.includes('fasttext') ? 'FastText + SVM' : method.includes('dt') ? method.replace('dt-', '').toUpperCase() + ' + Decision Tree' : 'TF-IDF + SVM'} yang dilatih dengan ICAR Agriculture Dataset. Data dilayani via FastAPI.</em>
                      </Text>
                   </Box>
                </Card.Body>
