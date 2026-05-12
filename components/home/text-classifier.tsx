@@ -47,23 +47,7 @@ export const TextClassifier = () => {
          }
 
          const data = await response.json();
-         // Bypass warna dari backend dan gunakan mapping frontend
-         const colorMap: Record<string, string> = {
-            'Books': '#6366f1',
-            'Reports': '#8b5cf6',
-            'Indian Farming': '#06b6d4',
-            'Indian Horticulture': '#10b981',
-            'Annual Reports': '#f59e0b',
-            'Traditional Knowledge in Agriculture': '#ec4899',
-            'Traditional Knowledge': '#ec4899'
-         };
-         
-         const mappedScores = data.scores.map((score: ClassScore) => ({
-            ...score,
-            color: colorMap[score.label] || score.color
-         }));
-         
-         setResults(mappedScores);
+         setResults(data.scores);
       } catch (error) {
          console.error('Error classifying text:', error);
          setResults([]); // Empty array signals failed/no result
@@ -115,11 +99,7 @@ export const TextClassifier = () => {
                      >
                         <option value="tfidf">TF-IDF + SVM</option>
                         <option value="fasttext">FastText + SVM</option>
-                        <option value="dt-tfidf">TF-IDF + Decision Tree</option>
-                        <option value="dt-bow">BoW + Decision Tree</option>
-                        <option value="dt-ngram">N-gram + Decision Tree</option>
                         <option value="nb-tfidf">TF-IDF + Naive Bayes</option>
-                        <option value="nb-bow">BoW + Naive Bayes</option>
                      </select>
                      <Text span css={{ color: '$accents6', fontSize: '$xs' }}>{charCount} karakter</Text>
                   </Flex>
