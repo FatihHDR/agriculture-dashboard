@@ -17,6 +17,13 @@ const Chart = dynamic(
    }
 );
 
+const LineChart = dynamic(
+   () => import('../charts/model-accuracy-chart').then((mod) => mod.ModelAccuracyChart),
+   {
+      ssr: false,
+   }
+);
+
 export const Content = () => (
    <Box css={{overflow: 'hidden', height: '100%'}}>
       <Flex
@@ -97,6 +104,34 @@ export const Content = () => (
                   }}
                >
                   <Chart />
+               </Box>
+            </Box>
+
+            {/* Line Chart */}
+            <Box>
+               <Text
+                  h3
+                  css={{
+                     'textAlign': 'center',
+                     '@lg': {
+                        textAlign: 'inherit',
+                     },
+                  }}
+               >
+                  Akurasi Model Berdasarkan Split Ratio
+               </Text>
+               <Box
+                  css={{
+                     width: '100%',
+                     backgroundColor: '$accents0',
+                     boxShadow: '$lg',
+                     borderRadius: '$2xl',
+                     px: '$10',
+                     py: '$10',
+                     mb: '$10',
+                  }}
+               >
+                  <LineChart />
                </Box>
             </Box>
          </Flex>
