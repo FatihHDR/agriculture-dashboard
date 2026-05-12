@@ -9,6 +9,9 @@ const lightTheme = createTheme({
    type: 'light',
    theme: {
       colors: {},
+      fonts: {
+         sans: "Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif"
+      }
    },
 });
 
@@ -16,6 +19,9 @@ const darkTheme = createTheme({
    type: 'dark',
    theme: {
       colors: {},
+      fonts: {
+         sans: "Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif"
+      }
    },
 });
 
