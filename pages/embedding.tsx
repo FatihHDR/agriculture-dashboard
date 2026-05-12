@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import type {NextPage} from 'next';
 import React from 'react';
-import {Text, Card, Badge} from '@nextui-org/react';
+import {Text, Card, Badge, Modal} from '@nextui-org/react';
 import {Box} from '../components/styles/box';
 import {Flex} from '../components/styles/flex';
 import {embeddingModels} from '../lib/nlp-data';
@@ -15,6 +15,8 @@ const TopFeaturesChart = dynamic(
 );
 
 const EmbeddingPage: NextPage = () => {
+   const [previewImage, setPreviewImage] = React.useState<string | null>(null);
+
    return (
       <Box css={{overflow: 'hidden', height: '100%', py: '$10', px: '$12'}}>
          <Text h2 css={{mb: '$2'}}>Word Embedding</Text>
@@ -99,10 +101,12 @@ const EmbeddingPage: NextPage = () => {
                      <img
                         src={`/output/${img.file}`}
                         alt={`PCA ${img.label}`}
+                        onClick={() => setPreviewImage(`/output/${img.file}`)}
                         style={{
                            width: '100%',
                            height: '220px',
                            objectFit: 'cover',
+                           cursor: 'pointer',
                         }}
                      />
                   </Card.Body>
@@ -176,6 +180,24 @@ const EmbeddingPage: NextPage = () => {
                </table>
             </Card.Body>
          </Card>
+
+         <Modal
+            closeButton
+            blur
+            open={!!previewImage}
+            onClose={() => setPreviewImage(null)}
+            width="800px"
+         >
+            <Modal.Body css={{ p: '$10' }}>
+               {previewImage && (
+                  <img
+                     src={previewImage}
+                     alt="PCA Preview"
+                     style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
+                  />
+               )}
+            </Modal.Body>
+         </Modal>
       </Box>
    );
 };

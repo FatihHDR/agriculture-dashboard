@@ -9,12 +9,12 @@ export const datasetInfo = {
 };
 
 export const categoryDistribution = [
-  { name: 'Books', original: 54, augmented: 54, color: '#2563eb' },
-  { name: 'Reports', original: 47, augmented: 54, color: '#1d4ed8' },
-  { name: 'Indian Farming', original: 23, augmented: 54, color: '#475569' },
-  { name: 'Indian Horticulture', original: 18, augmented: 54, color: '#64748b' },
-  { name: 'Annual Reports', original: 10, augmented: 54, color: '#3b82f6' },
-  { name: 'Traditional Knowledge', original: 7, augmented: 54, color: '#334155' },
+  { name: 'Books', original: 54, augmented: 54, color: '#6366f1' },
+  { name: 'Reports', original: 47, augmented: 54, color: '#8b5cf6' },
+  { name: 'Indian Farming', original: 23, augmented: 54, color: '#06b6d4' },
+  { name: 'Indian Horticulture', original: 18, augmented: 54, color: '#10b981' },
+  { name: 'Annual Reports', original: 10, augmented: 54, color: '#f59e0b' },
+  { name: 'Traditional Knowledge', original: 7, augmented: 54, color: '#ec4899' },
 ];
 
 export const embeddingModels = [

@@ -22,10 +22,10 @@ const FeaturesPage: NextPage = () => {
          {/* Stats row */}
          <Flex css={{gap: '$8', flexWrap: 'wrap', mb: '$12'}} direction={'row'}>
             {[
-               {label: 'Total Fitur TF-IDF', value: '1,000', sub: 'Fitur dipilih', color: '#2563eb'},
-               {label: 'Fitur Teratas', value: 'yield', sub: 'Score: 0.04536', color: '#1d4ed8'},
-               {label: 'Metode Seleksi', value: 'Mean TF-IDF', sub: 'Top-k selection', color: '#475569'},
-               {label: 'N-gram Range', value: '(1,2)', sub: 'Unigram + Bigram', color: '#64748b'},
+               {label: 'Total Fitur TF-IDF', value: '1,000', sub: 'Fitur dipilih', color: '#6366f1'},
+               {label: 'Fitur Teratas', value: 'yield', sub: 'Score: 0.04536', color: '#8b5cf6'},
+               {label: 'Metode Seleksi', value: 'Mean TF-IDF', sub: 'Top-k selection', color: '#06b6d4'},
+               {label: 'N-gram Range', value: '(1,2)', sub: 'Unigram + Bigram', color: '#10b981'},
             ].map((stat) => (
                <Card
                   key={stat.label}
@@ -107,8 +107,8 @@ const FeaturesPage: NextPage = () => {
                                  padding: '2px 8px',
                                  borderRadius: '8px',
                                  fontSize: '11px',
-                                 background: 'rgba(59, 130, 246, 0.1)',
-                                 color: '#3b82f6',
+                                 background: 'rgba(6, 182, 212, 0.1)',
+                                 color: '#06b6d4',
                                  fontWeight: 600,
                               }}>
                                  {row.ngramSize}-gram
