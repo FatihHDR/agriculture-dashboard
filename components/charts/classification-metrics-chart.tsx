@@ -30,7 +30,7 @@ const options: Props['options'] = {
          show: false,
       },
    },
-   colors: ['#3b82f6', '#475569', '#64748b'],
+   colors: ['#6366f1', '#10b981', '#f59e0b'],
    plotOptions: {
       bar: {
          horizontal: false,

@@ -15,10 +15,10 @@ const ClassificationMetricsChart = dynamic(
 const ClassificationPage: NextPage = () => {
    const {tfidf} = classificationResults;
    const metrics = [
-      {label: 'Accuracy', value: tfidf.accuracy, color: '#3b82f6'},
-      {label: 'Precision', value: tfidf.precision, color: '#2563eb'},
-      {label: 'Recall', value: tfidf.recall, color: '#1d4ed8'},
-      {label: 'F1-Score', value: tfidf.f1Score, color: '#475569'},
+      {label: 'Accuracy', value: tfidf.accuracy, color: '#6366f1'},
+      {label: 'Precision', value: tfidf.precision, color: '#8b5cf6'},
+      {label: 'Recall', value: tfidf.recall, color: '#06b6d4'},
+      {label: 'F1-Score', value: tfidf.f1Score, color: '#10b981'},
    ];
 
    return (
@@ -141,7 +141,7 @@ const ClassificationPage: NextPage = () => {
                                     {(cls.precision * 100).toFixed(0)}%
                                  </span>
                                  <Box css={{width: '60px', height: '4px', bg: '$accents2', borderRadius: '$full', overflow: 'hidden'}}>
-                                    <Box css={{width: `${cls.precision * 100}%`, height: '100%', background: '#6366f1', borderRadius: '$full'}} />
+                                    <Box css={{width: `${cls.precision * 100}%`, height: '100%', background: '#8b5cf6', borderRadius: '$full'}} />
                                  </Box>
                               </Flex>
                            </td>
@@ -151,7 +151,7 @@ const ClassificationPage: NextPage = () => {
                                     {(cls.recall * 100).toFixed(0)}%
                                  </span>
                                  <Box css={{width: '60px', height: '4px', bg: '$accents2', borderRadius: '$full', overflow: 'hidden'}}>
-                                    <Box css={{width: `${cls.recall * 100}%`, height: '100%', background: '#10b981', borderRadius: '$full'}} />
+                                    <Box css={{width: `${cls.recall * 100}%`, height: '100%', background: '#06b6d4', borderRadius: '$full'}} />
                                  </Box>
                               </Flex>
                            </td>
