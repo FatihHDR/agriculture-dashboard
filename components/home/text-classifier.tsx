@@ -47,7 +47,23 @@ export const TextClassifier = () => {
          }
 
          const data = await response.json();
-         setResults(data.scores);
+         // Bypass warna dari backend dan gunakan mapping frontend
+         const colorMap: Record<string, string> = {
+            'Books': '#6366f1',
+            'Reports': '#8b5cf6',
+            'Indian Farming': '#06b6d4',
+            'Indian Horticulture': '#10b981',
+            'Annual Reports': '#f59e0b',
+            'Traditional Knowledge in Agriculture': '#ec4899',
+            'Traditional Knowledge': '#ec4899'
+         };
+         
+         const mappedScores = data.scores.map((score: ClassScore) => ({
+            ...score,
+            color: colorMap[score.label] || score.color
+         }));
+         
+         setResults(mappedScores);
       } catch (error) {
          console.error('Error classifying text:', error);
          setResults([]); // Empty array signals failed/no result
