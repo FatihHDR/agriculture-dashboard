@@ -5,6 +5,7 @@ import {Box} from '../components/styles/box';
 import {Flex} from '../components/styles/flex';
 import {classificationResults, categoryDistribution} from '../lib/nlp-data';
 import dynamic from 'next/dynamic';
+import {TextClassifier} from '../components/home/text-classifier';
 
 const ClassificationMetricsChart = dynamic(
    () => import('../components/charts/classification-metrics-chart').then((mod) => mod.ClassificationMetricsChart),
@@ -26,6 +27,16 @@ const ClassificationPage: NextPage = () => {
          <Text css={{color: '$accents7', mb: '$10'}}>
             Evaluasi performa model klasifikasi teks pada dataset ICAR Agriculture
          </Text>
+
+         {/* ── Text Classification Playground ── */}
+         <Text h3 css={{mb: '$2'}}>🧪 Classification Playground</Text>
+         <Text css={{color: '$accents7', mb: '$6', fontSize: '$sm'}}>
+            Masukkan kalimat bebas — model akan menentukan kategorinya secara otomatis.
+         </Text>
+         <TextClassifier />
+
+         {/* Divider */}
+         <Box css={{my: '$12', borderTop: '1px solid $accents2'}} />
 
          {/* Overall Metrics */}
          <Text h3 css={{mb: '$6'}}>Metrik Keseluruhan — TF-IDF + SVM</Text>
