@@ -13,12 +13,27 @@ interface ClassScore {
 // ──────────────────────────────────────────────────────────────────────
 // UI Component
 // ──────────────────────────────────────────────────────────────────────
-const EXAMPLES = [
-   "Guidelines for authors regarding Indian Farming, focusing on crop cultivation and agricultural practices.",
-   "Advancements in horticulture, including fruit orchards, vegetables, and new tomato cultivation techniques.",
-   "This book publication reflects on startups in agricultural research, featuring multiple chapters and indexes.",
-   "Tribal farmers in the district use traditional knowledge and local plant leaves for water treatment.",
-   "The annual report contains the financial statements and yearly budget review of the agricultural institute."
+const EXAMPLES: { label: string; text: string }[] = [
+   {
+      label: "Indian Farming",
+      text: "Guidelines for authors regarding Indian Farming, focusing on crop cultivation and agricultural practices.",
+   },
+   {
+      label: "Indian Horticulture",
+      text: "Advancements in horticulture, including fruit orchards, vegetables, and new tomato cultivation techniques.",
+   },
+   {
+      label: "Books",
+      text: "This book publication reflects on startups in agricultural research, featuring multiple chapters and indexes.",
+   },
+   {
+      label: "Traditional Knowledge",
+      text: "Tribal farmers in the district use traditional knowledge and local plant leaves for water treatment.",
+   },
+   {
+      label: "Annual Reports",
+      text: "new wheat variety developed high yield resistant disease maturity days suitable madhya pradesh farmers production",
+   },
 ];
 
 export const TextClassifier = () => {
@@ -70,9 +85,9 @@ export const TextClassifier = () => {
       }
    }, [inputText, method]);
 
-   const handleExample = (example: string) => {
-      setInputText(example);
-      setCharCount(example.length);
+   const handleExample = (text: string) => {
+      setInputText(text);
+      setCharCount(text.length);
       setResults(null);
    };
 
@@ -157,7 +172,7 @@ export const TextClassifier = () => {
                   {EXAMPLES.map((ex, i) => (
                      <button
                         key={i}
-                        onClick={() => handleExample(ex)}
+                        onClick={() => handleExample(ex.text)}
                         style={{
                            padding: '4px 12px',
                            borderRadius: '20px',
@@ -180,7 +195,7 @@ export const TextClassifier = () => {
                            (e.target as HTMLElement).style.color = 'var(--nextui-colors-accents7)';
                         }}
                      >
-                        Contoh {i + 1}
+                        {ex.label}
                      </button>
                   ))}
                </Flex>
