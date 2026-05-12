@@ -1,8 +1,8 @@
-import React, {useState, useCallback} from 'react';
-import {Card, Text, Button, Textarea, Loading} from '@nextui-org/react';
-import {Box} from '../styles/box';
-import {Flex} from '../styles/flex';
-import {categoryDistribution} from '../../lib/nlp-data';
+import React, { useState, useCallback } from 'react';
+import { Card, Text, Button, Textarea, Loading } from '@nextui-org/react';
+import { Box } from '../styles/box';
+import { Flex } from '../styles/flex';
+import { categoryDistribution } from '../../lib/nlp-data';
 
 interface ClassScore {
    label: string;
@@ -17,7 +17,7 @@ const EXAMPLES = [
    "Guidelines for authors regarding Indian Farming, focusing on crop cultivation and agricultural practices.",
    "Advancements in horticulture, including fruit orchards, vegetables, and new tomato cultivation techniques.",
    "This book publication reflects on startups in agricultural research, featuring multiple chapters and indexes.",
-   "Indigenous technical knowledge about tribal traditional medicine, medicinal plants, and rural agriculture.",
+   "Tribal farmers in the district use traditional knowledge and local plant leaves for water treatment.",
    "The annual report contains the financial statements and yearly budget review of the agricultural institute."
 ];
 
@@ -31,7 +31,7 @@ export const TextClassifier = () => {
    const handleClassify = useCallback(async () => {
       if (!inputText.trim()) return;
       setLoading(true);
-      
+
       try {
          const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8001';
          const response = await fetch(`${apiUrl}/classify`, {
@@ -41,11 +41,11 @@ export const TextClassifier = () => {
             },
             body: JSON.stringify({ text: inputText, method }),
          });
-         
+
          if (!response.ok) {
             throw new Error(`API error: ${response.status}`);
          }
-         
+
          const data = await response.json();
          setResults(data.scores);
       } catch (error) {
@@ -74,11 +74,11 @@ export const TextClassifier = () => {
    return (
       <Box>
          {/* Input area */}
-         <Card css={{borderRadius: '$xl', bg: '$accents0', mb: '$6', border: '1px solid $accents2'}}>
-            <Card.Body css={{py: '$6', px: '$8'}}>
-               <Flex align={'center'} justify={'between'} css={{mb: '$4'}}>
-                  <Text b css={{color: '$accents9', fontSize: '$md'}}>Teks Input</Text>
-                  <Flex align={'center'} css={{gap: '$4'}}>
+         <Card css={{ borderRadius: '$xl', bg: '$accents0', mb: '$6', border: '1px solid $accents2' }}>
+            <Card.Body css={{ py: '$6', px: '$8' }}>
+               <Flex align={'center'} justify={'between'} css={{ mb: '$4' }}>
+                  <Text b css={{ color: '$accents9', fontSize: '$md' }}>Teks Input</Text>
+                  <Flex align={'center'} css={{ gap: '$4' }}>
                      <select
                         value={method}
                         onChange={(e) => {
@@ -102,13 +102,15 @@ export const TextClassifier = () => {
                         <option value="dt-tfidf">TF-IDF + Decision Tree</option>
                         <option value="dt-bow">BoW + Decision Tree</option>
                         <option value="dt-ngram">N-gram + Decision Tree</option>
+                        <option value="nb-tfidf">TF-IDF + Naive Bayes</option>
+                        <option value="nb-bow">BoW + Naive Bayes</option>
                      </select>
-                     <Text span css={{color: '$accents6', fontSize: '$xs'}}>{charCount} karakter</Text>
+                     <Text span css={{ color: '$accents6', fontSize: '$xs' }}>{charCount} karakter</Text>
                   </Flex>
                </Flex>
 
                {/* Textarea wrapper using plain HTML since NextUI Textarea has controlled issues */}
-               <Box css={{position: 'relative', mb: '$4'}}>
+               <Box css={{ position: 'relative', mb: '$4' }}>
                   <textarea
                      id="classifier-input"
                      value={inputText}
@@ -140,8 +142,8 @@ export const TextClassifier = () => {
                </Box>
 
                {/* Example chips */}
-               <Text css={{color: '$accents6', fontSize: '$xs', mb: '$2'}}>Contoh Kalimat:</Text>
-               <Flex css={{gap: '$2', flexWrap: 'wrap', mb: '$6'}}>
+               <Text css={{ color: '$accents6', fontSize: '$xs', mb: '$2' }}>Contoh Kalimat:</Text>
+               <Flex css={{ gap: '$2', flexWrap: 'wrap', mb: '$6' }}>
                   {EXAMPLES.map((ex, i) => (
                      <button
                         key={i}
@@ -174,7 +176,7 @@ export const TextClassifier = () => {
                </Flex>
 
                {/* Action buttons */}
-               <Flex css={{gap: '$3'}} align={'center'}>
+               <Flex css={{ gap: '$3' }} align={'center'}>
                   <button
                      id="classify-btn"
                      onClick={handleClassify}
@@ -222,11 +224,11 @@ export const TextClassifier = () => {
 
          {/* Result area */}
          {loading && (
-            <Card css={{borderRadius: '$xl', bg: '$accents0', border: '1px solid $accents2'}}>
-               <Card.Body css={{py: '$10', textAlign: 'center'}}>
-                  <Flex justify={'center'} align={'center'} direction={'column'} css={{gap: '$4'}}>
+            <Card css={{ borderRadius: '$xl', bg: '$accents0', border: '1px solid $accents2' }}>
+               <Card.Body css={{ py: '$10', textAlign: 'center' }}>
+                  <Flex justify={'center'} align={'center'} direction={'column'} css={{ gap: '$4' }}>
                      <Loading size="lg" color="secondary" />
-                     <Text css={{color: '$accents6'}}>Model sedang memproses teks...</Text>
+                     <Text css={{ color: '$accents6' }}>Model sedang memproses teks...</Text>
                   </Flex>
                </Card.Body>
             </Card>
@@ -240,11 +242,11 @@ export const TextClassifier = () => {
                   border: hasResult ? `1px solid ${topResult!.color}40` : '1px solid $accents2',
                }}
             >
-               <Card.Body css={{py: '$6', px: '$8'}}>
+               <Card.Body css={{ py: '$6', px: '$8' }}>
                   {/* Prediction Header */}
                   {hasResult ? (
                      <>
-                        <Flex align={'center'} css={{gap: '$4', mb: '$6'}}>
+                        <Flex align={'center'} css={{ gap: '$4', mb: '$6' }}>
                            <Box
                               css={{
                                  width: '48px',
@@ -259,12 +261,12 @@ export const TextClassifier = () => {
                               }}
                            >
                               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                 <path d="M7 7H17V17H7V7Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                 <path d="M7 3V7M17 3V7M7 17V21M17 17V21M3 7H7M17 7H21M3 17H7M17 17H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                 <path d="M7 7H17V17H7V7Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                 <path d="M7 3V7M17 3V7M7 17V21M17 17V21M3 7H7M17 7H21M3 17H7M17 17H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                               </svg>
                            </Box>
                            <Box>
-                              <Text css={{color: '$accents6', fontSize: '$xs', mb: '$1'}}>Prediksi Kelas</Text>
+                              <Text css={{ color: '$accents6', fontSize: '$xs', mb: '$1' }}>Prediksi Kelas</Text>
                               <Text
                                  b
                                  css={{
@@ -275,11 +277,11 @@ export const TextClassifier = () => {
                                  {topResult!.label}
                               </Text>
                            </Box>
-                           <Box css={{marginLeft: 'auto', textAlign: 'right'}}>
-                              <Text css={{color: '$accents6', fontSize: '$xs', mb: '$1'}}>Confidence</Text>
+                           <Box css={{ marginLeft: 'auto', textAlign: 'right' }}>
+                              <Text css={{ color: '$accents6', fontSize: '$xs', mb: '$1' }}>Confidence</Text>
                               <Text
                                  b
-                                 css={{fontSize: '$xl', color: topResult!.color}}
+                                 css={{ fontSize: '$xl', color: topResult!.color }}
                               >
                                  {(topResult!.probability * 100).toFixed(1)}%
                               </Text>
@@ -287,14 +289,14 @@ export const TextClassifier = () => {
                         </Flex>
 
                         {/* Confidence bar for all classes */}
-                        <Text css={{color: '$accents6', fontSize: '$xs', mb: '$3', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em'}}>
+                        <Text css={{ color: '$accents6', fontSize: '$xs', mb: '$3', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                            Skor Per Kelas
                         </Text>
-                        <Flex direction={'column'} css={{gap: '$3'}}>
+                        <Flex direction={'column'} css={{ gap: '$3' }}>
                            {results.map((r, i) => (
                               <Box key={r.label}>
-                                 <Flex align={'center'} justify={'between'} css={{mb: '$1'}}>
-                                    <Flex align={'center'} css={{gap: '$2'}}>
+                                 <Flex align={'center'} justify={'between'} css={{ mb: '$1' }}>
+                                    <Flex align={'center'} css={{ gap: '$2' }}>
                                        <Box
                                           css={{
                                              width: '8px',
@@ -304,15 +306,15 @@ export const TextClassifier = () => {
                                              flexShrink: 0,
                                           }}
                                        />
-                                       <Text span css={{fontSize: '$sm', fontWeight: i === 0 ? 700 : 400, color: i === 0 ? '$accents9' : '$accents7'}}>
+                                       <Text span css={{ fontSize: '$sm', fontWeight: i === 0 ? 700 : 400, color: i === 0 ? '$accents9' : '$accents7' }}>
                                           {r.label}
                                        </Text>
                                     </Flex>
-                                    <Text span css={{fontSize: '$sm', fontWeight: 600, color: r.color}}>
+                                    <Text span css={{ fontSize: '$sm', fontWeight: 600, color: r.color }}>
                                        {(r.probability * 100).toFixed(1)}%
                                     </Text>
                                  </Flex>
-                                 <Box css={{bg: '$accents2', borderRadius: '$full', height: '6px', overflow: 'hidden'}}>
+                                 <Box css={{ bg: '$accents2', borderRadius: '$full', height: '6px', overflow: 'hidden' }}>
                                     <Box
                                        css={{
                                           height: '100%',
@@ -328,14 +330,14 @@ export const TextClassifier = () => {
                         </Flex>
                      </>
                   ) : (
-                     <Flex direction={'column'} align={'center'} css={{gap: '$3', py: '$4'}}>
+                     <Flex direction={'column'} align={'center'} css={{ gap: '$3', py: '$4' }}>
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--nextui-colors-accents4)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                            <circle cx="12" cy="12" r="10"></circle>
                            <line x1="12" y1="8" x2="12" y2="12"></line>
                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
                         </svg>
-                        <Text b css={{color: '$accents8'}}>Teks tidak dapat diklasifikasikan</Text>
-                        <Text css={{color: '$accents6', fontSize: '$sm', textAlign: 'center'}}>
+                        <Text b css={{ color: '$accents8' }}>Teks tidak dapat diklasifikasikan</Text>
+                        <Text css={{ color: '$accents6', fontSize: '$sm', textAlign: 'center' }}>
                            Coba tambahkan kata kunci yang lebih spesifik terkait kategori pertanian, laporan, atau pengetahuan tradisional.
                         </Text>
                      </Flex>
@@ -349,8 +351,8 @@ export const TextClassifier = () => {
                         borderTop: '1px solid $accents2',
                      }}
                   >
-                     <Text css={{color: '$accents5', fontSize: '11px'}}>
-                        <em>Catatan: Menggunakan model {method.includes('fasttext') ? 'FastText + SVM' : method.includes('dt') ? method.replace('dt-', '').toUpperCase() + ' + Decision Tree' : 'TF-IDF + SVM'} yang dilatih dengan ICAR Agriculture Dataset. Data dilayani via FastAPI.</em>
+                     <Text css={{ color: '$accents5', fontSize: '11px' }}>
+                        <em>Catatan: Menggunakan model {method.includes('fasttext') ? 'FastText + SVM' : method.includes('dt') ? method.replace('dt-', '').toUpperCase() + ' + Decision Tree' : method.includes('nb') ? method.replace('nb-', '').toUpperCase() + ' + Naive Bayes' : 'TF-IDF + SVM'} yang dilatih dengan ICAR Agriculture Dataset. Data dilayani via FastAPI.</em>
                      </Text>
                   </Box>
                </Card.Body>
